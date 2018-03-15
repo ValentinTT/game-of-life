@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { generateState } from './generatState';
 import './App.css';
 
-const App = () => (
+let App = () => (
   <div>
     Game of Life
   </div>
 )
-
 export default App;
