@@ -1,0 +1,50 @@
+$main-bg: #000000;
+$board-bg: #C0F53B;
+$cell-dead-bg: #C2321B;
+.App {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "header" "board" "footer";
+}
+
+header,
+footer {
+  width: 100%;
+  text-align: center;
+}
+
+.board-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid: board;
+  .board {
+    width: 500px;
+    height: 500px;
+    padding: 1px;
+    background: $board-bg;
+    display: grid;
+    grid-template-columns: repeat(50, 1fr);
+    grid-template-rows: repeat(50, 1fr);
+    justify-items: center;
+    align-items: center;
+    .cell {
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      border: 1px solid $board-bg;
+      background: white;
+    }
+    .cell-1 {
+      background: $cell-dead-bg;
+    }
+    .cell-0 {
+      background: #000;
+    }
+  }
+}

@@ -2,7 +2,7 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 import logger from 'redux-logger';
 
 export const [columns,
-    rows] = [10, 10]
+    rows] = [50, 50]
 
 export const randomState = () => Array.from({
     length: rows
@@ -30,20 +30,20 @@ const changeCell = (state, newCell) => {
         ...state.slice(newCell.row + 1)
     ];
 }
-const boardState = (state = [], action) => {
+const boardState = (state = randomState(), action) => {
     switch (action.type) {
         case "NEXT_STATE":
-        console.log(action.newState);
-            return checkNextState(action.newState)
-                ? action.newState
+            return checkNextState(action.nextState)
+                ? action.nextState
                 : state;
         case "PARTICULAR_CHANGE":
             return changeCell(state, action.newCell);
         case "CLEAR_BOARD": 
             return clearBoard();
         case "RANDOM_STATE":
-        default:
             return randomState();
+        default:
+            return state;
     }
 }
 
@@ -58,7 +58,7 @@ const boardGeneration = (state = 0, action) => {
     }
 }
 
-const boardPlaying = (state = "PAUSE", action) => {
+const boardPlaying = (state = false, action) => {
     switch (action.type) {
         case "CHANGE_GAME_PLAYING":
             return action.playing
