@@ -1,20 +1,30 @@
+@import url("https://fonts.googleapis.com/css?family=Inconsolata");
 .App {
   width: 100vw;
   height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
   grid-template-areas: "header" "board" "footer";
+  font-family: 'Inconsolata', monospace;
 }
 
-header,
-footer {
+footer, header {
   width: 100%;
   text-align: center;
+  background: #143033;
+  color: #D71582;
+}
+
+header h1 {
+  margin: 10px;
 }
 
 .board-section {
+  grid-area: board;
   width: 100%;
   height: 100%;
+  background: #193B3E;
+  color: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -28,37 +38,113 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  grid: board;
+}
+
+.board-section .board-controls {
+  width: 500px;
+  margin-top: 15px;
+}
+
+.board-section .board-controls .board-control-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.board-section .board-controls .board-control-buttons .btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: #15C5D7;
+  position: relative;
+  -webkit-transition: -webkit-transform .1s;
+  transition: -webkit-transform .1s;
+  transition: transform .1s;
+  transition: transform .1s, -webkit-transform .1s;
+}
+
+.board-section .board-controls .board-control-buttons .btn:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.board-section .board-controls .board-control-buttons .btn:focus {
+  outline: none;
+}
+
+.board-section .board-controls .board-generations {
+  text-align: center;
+  padding: 0;
+  padding-bottom: 10px;
+  margin: 0;
 }
 
 .board-section .board {
   width: 500px;
   height: 500px;
   padding: 1px;
-  background: #C0F53B;
+  background: #00A457;
   display: grid;
   grid-template-columns: repeat(50, 1fr);
   grid-template-rows: repeat(50, 1fr);
+  grid-gap: 1px;
   justify-items: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-.board-section .board .cell {
+.board-section .board .cell, .board-section .board .cell-1, .board-section .board .cell-0 {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   width: 100%;
   height: 100%;
-  border: 1px solid #C0F53B;
   background: white;
 }
 
 .board-section .board .cell-1 {
-  background: #C2321B;
+  background: #18F08B;
 }
 
 .board-section .board .cell-0 {
-  background: #000;
+  background: #00572F;
+}
+
+.link {
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #D71582;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: -webkit-transform .3s;
+  transition: -webkit-transform .3s;
+  transition: transform .3s;
+  transition: transform .3s, -webkit-transform .3s;
+}
+
+.link:hover::after {
+  -webkit-transform: scale(1);
+          transform: scale(1);
 }
 /*# sourceMappingURL=App.css.map */

@@ -1,32 +1,38 @@
+import registerServiceWorker from './registerServiceWorker';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { dispatchNextState } from './Actions';
 import { configureStore } from './Store.js';
-import './index.css';
 import App from './App.jsx';
-import registerServiceWorker from './registerServiceWorker';
-import {generateState} from './generatState';
+import './index.css';
 
 const store = configureStore();
-console.log(store.getState());
 
-let gameId = 0;
 let previusPlay = false;
 store.subscribe(() => {
-    let newPlay = store.getState().boardPlaying;
-    if(newPlay && newPlay != previusPlay) {
-        gameId = setInterval(() => store.dispatch({
-            type:"NEXT_STATE",
-            nextState:  generateState(store.getState().boardState)
-        }), 1000);
-    }
-    else if (!newPlay && newPlay != previusPlay)
-        clearInterval(gameId);
-    previusPlay = newPlay;
-});
+    if(store.getState().boardPlaying) {
+        if (!previusPlay) {
+            run();
+            previusPlay = true;
+        }
+    } else if (previusPlay) previusPlay = false;
+})
 
-ReactDOM.render(<Provider store={store}>
+const run = () => {
+    setTimeout(() => {
+        let {boardState, boardPlaying} = store.getState();
+        store.dispatch(
+            dispatchNextState(boardState)
+        );
+        if(boardPlaying)
+            run();
+    },90);
+};
+
+ReactDOM.render(
+    <Provider store={store}>
         <App />
-    </Provider>
-    , document.getElementById('root'));
+    </Provider>, 
+    document.getElementById('root'));
 registerServiceWorker();
